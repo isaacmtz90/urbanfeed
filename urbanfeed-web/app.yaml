@@ -1,0 +1,44 @@
+application: urban-feed
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /
+  static_files: static_site/index.html
+  upload: static_site/index.html
+
+- url: /generic.html
+  static_files: static_site/generic.html
+  upload: static_site/generic.html
+
+- url: /login-form.html
+  static_files: static_site/login-form.html
+  upload: static_site/login-form.html
+
+- url: /index.html
+  static_files: static_site/index.html
+  upload: static_site/index.html
+
+- url: /sass
+  static_dir: static_site/sass
+
+- url: /css
+  static_dir: static_site/css
+
+- url: /fonts
+  static_dir: static_site/fonts
+
+- url: /images
+  static_dir: static_site/images
+
+- url: /js
+  static_dir: static_site/js
+
+- url: /images
+  static_dir: static_site/images
+
+libraries:
+- name: webapp2
+  version: "2.5.2"
