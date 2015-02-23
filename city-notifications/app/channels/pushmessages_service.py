@@ -49,7 +49,7 @@ class MessagesService(Service):
     				'X-Parse-REST-API-Key':'###above'})
 			
 		return datamsg
-
+		
 	@f3.auto_method(returns= MultiMessage, http_method="GET", name="get_by_channel")
 	def by_channel(delf,request,channelid=(str,)):
 		cha_msgs= PushMessage.query(
