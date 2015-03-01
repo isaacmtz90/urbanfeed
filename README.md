@@ -6,4 +6,4 @@ Part of Global Datafest Hackathon for Tegucigalpa. More information here: http:/
 Backend using Ferris 3 framework for google app engine
 Frontend using Alpha template
 
-App can be found on bitbucket -link coming soon-
+App can be found at https://github.com/crisgarner/UrbanFeedApp
