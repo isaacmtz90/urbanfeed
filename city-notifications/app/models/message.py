@@ -8,5 +8,5 @@ class PushMessage(Model):
     channel_id= ndb.StringProperty(required=True)
     channel_name= ndb.StringProperty(required= True)
     title = ndb.StringProperty()
-    content = ndb.TextProperty(required= True)
+    content = ndb.StringProperty(required= True)
     date = ndb.DateTimeProperty(auto_now = True, required= True)
