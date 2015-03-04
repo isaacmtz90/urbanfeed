@@ -1,0 +1,25 @@
+<div class="container">
+  <h3 class="orange-text  center">Register with your email or phone number</h3>
+   <form id-"form" ng-submit="registerUser(username, password, passwordconfirmation)">
+            <div class="row">
+            <div class="input-field col s12">
+              <i class="mdi-social-person prefix"></i>
+              <input  ng-model="username" id="icon_prefix" type="text" class="validate" required>
+              <label for="icon_prefix">User (email or phone number)</label>
+            </div>
+            <div class="input-field col s12">
+               <i class="mdi-communication-vpn-key prefix"></i>
+               <input  ng-model="password" id="icon_prefix" type="password" class="validate" required>
+               <label for="textarea1">Password</label>
+            </div>
+            <div class="input-field col s12">
+               <i class="mdi-communication-vpn-key prefix"></i>
+               <input  ng-model="passwordconfirmation" id="icon_prefix" type="password" class="validate" required>
+               <label for="textarea1">Confirm Password</label>
+            </div>
+          </div>
+          </form>
+          <div class="row center">
+          <a ng-click="registerUser(username, password, passwordconfirmation)" class="btn waves-effect waves-light red"></i>Create Account</a>
+      </div>
+</div>
