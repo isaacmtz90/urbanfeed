@@ -35,18 +35,18 @@ class MessagesService(Service):
 		broadcasted_msg = PushMessage(channel_id=channel_id, channel_name=channel_name, title=title,content=content)
 		datamsg=f3.messages.serialize(MessageMsg,broadcasted_msg)
 		broadcasted_msg.put()
-		parse_chName=channel_name.replace(" ","")
+		
 		url="https://api.parse.com/1/push"
 		payload_content= {
-		'channels': [parse_chName],
+		'channels': [channel_id],
 		'data':{'alert': channel_name+ ": " + title+"-"+ content}
 		}
 		result = urlfetch.fetch(url=url,
 			payload= json.dumps(payload_content),
 			method=urlfetch.POST,
     		headers={'Content-Type': 'application/json',
-    				'X-Parse-Application-Id':'###above',
-    				'X-Parse-REST-API-Key':'###above'})
+    				'X-Parse-Application-Id':'mszxzS42wKud0ojfP0jJr8klsNCT9k8Js9JMf6ZW',
+    				'X-Parse-REST-API-Key':'83BHgK79PTFlYGAec9nIG2dtkFoyXoFGJEVplMWQ'})
 			
 		return datamsg
 		

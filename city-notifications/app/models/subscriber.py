@@ -4,6 +4,7 @@ from ferris3 import Model
 
 class Subscriber(Model):
     object_id = ndb.StringProperty()
+    password = ndb.StringProperty()
     channels = ndb.StringProperty(repeated=True)
 
     @classmethod
