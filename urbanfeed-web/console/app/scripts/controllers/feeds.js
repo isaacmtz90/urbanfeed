@@ -15,9 +15,11 @@ angular.module('consoleApp')
 			'Karma'
 		];
 
+
 		FeedsService.getAllFeeds().success(function(data) {
 			console.log(data.items);
 			$scope.feedItems = data.items;
+			$('.tooltipped').tooltip({delay: 50});
 		});
 
 		$scope.createMessage = function(title, content, channel) {

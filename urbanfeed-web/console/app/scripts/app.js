@@ -26,7 +26,7 @@ angular
         templateUrl: 'views/feeds.html',
         controller: 'FeedsCtrl'
       })
-      .when('/broadcasts', {
+      .when('/broadcasts/:param', {
         templateUrl: 'views/broadcasts.html',
         controller: 'BroadcastsCtrl'
       })

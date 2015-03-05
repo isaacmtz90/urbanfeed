@@ -1,4 +1,4 @@
-<div class="container">
+<div ng-show="success" class="container">
   <h3 class="orange-text  center">Register with your email or phone number</h3>
    <form id-"form" ng-submit="registerUser(username, password, passwordconfirmation)">
             <div class="row">
@@ -22,4 +22,7 @@
           <div class="row center">
           <a ng-click="registerUser(username, password, passwordconfirmation)" class="btn waves-effect waves-light red"></i>Create Account</a>
       </div>
+</div>
+<div ng-show= "!success" class="container center">
+ <h1 class="center"> Account created! Redirecting you to the Homepage </h1>
 </div>

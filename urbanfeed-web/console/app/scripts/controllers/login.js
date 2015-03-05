@@ -9,18 +9,14 @@
  */
 angular.module('consoleApp')
 	.controller('LoginctrlCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
-		$scope.awesomeThings = [
-			'HTML5 Boilerplate',
-			'AngularJS',
-			'Karma'
-		];
+
 		$scope.logMeIn = function(username, password) {
 			//validate, if it passes:
-			$rootScope.username=username;
-			$rootScope.password=password;
+			$rootScope.username = username;
+			$rootScope.password = password;
 			//TODO: store in cookie
 			//TODO: Read at startup
-			
+
 			$('#login').closeModal();
 
 		};

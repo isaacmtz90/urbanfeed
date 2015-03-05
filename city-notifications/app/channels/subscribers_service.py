@@ -27,6 +27,14 @@ class SubscribersService(Service):
 		value= Subscriber.get_by_obj_id(objectId).get()		
 		return f3.messages.serialize(SubMsg, value)
 
+	@f3.auto_method(returns= SubMsg, http_method="POST", name="validate")
+	def validate(delf,request,objectId=(str,), password=(str,)):
+		value= Subscriber.get_by_obj_id(objectId).get()
+		if value.password == password:
+			return f3.messages.serialize(SubMsg, value)
+		else:
+			raise f3.NotFoundException()
+
 	@f3.auto_method(returns= SubMsg, http_method="POST", name="add_channel")
 	def add_channel(delf,request,channelid=(str,),objectId=(str,)):
 		value= Subscriber.get_by_obj_id(objectId).get()
@@ -34,7 +42,8 @@ class SubscribersService(Service):
 			if channelid not in value.channels:
 				value.channels.append(channelid)
 				value.put()
-		
+			else:
+				raise f3.NotFoundException()
 		return f3.messages.serialize(SubMsg, value)
 
 	@f3.auto_method(returns= SubMsg, http_method="POST", name="remove_channel")
@@ -43,7 +52,8 @@ class SubscribersService(Service):
 		if value is not None:
 			value.channels.remove(channelid)
 			value.put()
-		
+		else:
+			raise f3.NotFoundException()
 		return f3.messages.serialize(SubMsg, value)
 		
 		

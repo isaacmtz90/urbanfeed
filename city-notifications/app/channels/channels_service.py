@@ -44,3 +44,15 @@ class ChannelsService(Service):
 				return f3.messages.serialize_list(MultiMessage, cha_msgs)
 			else:
 				 raise f3.NotFoundException()
+
+	@f3.auto_method(returns= MultiMessage, http_method="GET", name="get_by_ids")
+	def by_ids(self,request,  channels=(str,)):
+		selected_channels= channels.split(",")
+		cha_msgs= Channel.query(
+			Channel.short_id.IN(selected_channels)
+			)
+			
+		if cha_msgs is not None:
+			return f3.messages.serialize_list(MultiMessage, cha_msgs)
+		else:
+		    raise f3.NotFoundException()

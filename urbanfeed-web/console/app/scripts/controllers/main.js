@@ -14,4 +14,6 @@ angular.module('consoleApp')
       'AngularJS',
       'Karma'
     ];
+
+    $('.parallax').parallax();
   });

@@ -1,1 +1,34 @@
-<p>This is the broadcasts view.</p>
+
+<div class="row">
+
+
+	<h2 class="center-align">Timeline</h2>
+	<div class="col s12 m8 offset-m2 l6 offset-l3">
+		<div ng-repeat="(key, value) in feedItems"> 
+
+			<div class="card grey lighten-5 z-depth-1"  >
+				<div class="row valign-wrapper" >
+					
+					<div class="col s12 center">
+						<h5 class="black-text">
+							{{value.title}}
+						</h5>
+						
+						<p class="black-text">
+							{{value.content}}
+							<br>
+							posted on: {{value.date}}
+						</p>
+						
+
+					</div>
+					
+				</div>
+			
+			</div>
+		</div>
+	</div>
+
+</div>
+
+

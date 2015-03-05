@@ -1,10 +1,10 @@
 {
   "name": "console",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "dependencies": {
     "angular": "1.2.16",
     "json3": "~3.3.1",
-    "es5-shim": "~3.1.0",   
+    "es5-shim": "~3.1.0",
     "angular-route": "1.2.16",
     "materialize": "~0.95.3"
   },
@@ -12,6 +12,7 @@
     "angular-mocks": "1.2.16",
     "angular-scenario": "1.2.16",
     "materialize": "~0.95.3"
+    
   },
   "appPath": "app"
 }

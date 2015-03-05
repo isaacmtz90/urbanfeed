@@ -8,10 +8,24 @@
  * Controller of the consoleApp
  */
 angular.module('consoleApp')
-  .controller('RegistrationCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+	.controller('RegistrationCtrl', ['$scope','$timeout', 'Subscribers', function($scope, $timeout, Subscribers) {
+		$scope.awesomeThings = [
+			'HTML5 Boilerplate',
+			'AngularJS',
+			'Karma'
+		];
+		$scope.success=false;
+		$scope.registerUser = function(username, password, passwordconfirmation) {
+			if (password === passwordconfirmation) {
+				var subscription= Subscribers.createSubscriber(username, password);
+				subscription.success(function(data){
+					$scope.success=true;
+					$timeout(function(){window.location.href= "#/feed"}, 4000);
+					
+				});
+			} else {
+				toast('Passwords do not match, try again', 4000);
+			}
+
+		};
+	}]);
