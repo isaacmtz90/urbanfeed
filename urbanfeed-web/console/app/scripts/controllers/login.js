@@ -13,17 +13,28 @@ angular.module('consoleApp')
 		if($cookieStore.get('LoggedUser')!== undefined){
 			$rootScope.username=$cookieStore.get('LoggedUser');
 			$rootScope.logged=true;
+			var user=Subscribers.getByObjId($rootScope.username);
+			user.success(function(data){
+				var channels =[];
+				channels=channels.concat(data.channels);
+				$rootScope.channels=channels;
+				$rootScope.$broadcast('user-logged');
+			});
+			
 		}
 
 		$scope.logMeIn = function(username, password) {
 			//validate, if it passes:
 			$rootScope.errorlogin=false;
 			$rootScope.logged=false;
+			
 			var validation=Subscribers.validateSubscriber(username,password);
 			validation.success(function(data){
+				
 				//set cookie
 				$rootScope.username = username;
 				$rootScope.password = password;
+				$rootScope.channels= data.channels;
 				$cookieStore.put('LoggedUser', username);
 				$cookieStore.put('Logged', true);
 				$rootScope.logged=true;

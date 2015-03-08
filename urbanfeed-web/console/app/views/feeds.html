@@ -19,7 +19,7 @@
 					</div>
 					<div class="col s4">
 						<a data-position="bottom" data-delay="50" data-tooltip="Vew Timline" href= "#/broadcasts/{{value.short_id}}"class="btn-floating btn-large waves-effect waves-light blue tooltipped"><i class="mdi-content-sort"></i></a>
-						<a data-position="bottom" data-delay="50" data-tooltip="Follow Feed" class="tooltipped btn-floating btn-large waves-effect waves-light green "><i class="mdi-content-add"></i></a>
+						<a ng-click= "AddFeed(value.short_id)" data-position="bottom" data-delay="50" data-tooltip="Follow Feed" class="tooltipped btn-floating btn-large waves-effect waves-light green "><i class="mdi-content-add"></i></a>
 						<a data-position="bottom" data-delay="50" data-tooltip="Broadcast a Message" ng-click = "expandCard(selected);selected=true" class="tooltipped btn-floating btn-large waves-effect waves-light activator"><i class="mdi-action-settings-input-antenna"></i></a>
 					</div>
 					

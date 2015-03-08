@@ -38,9 +38,49 @@ angular.module('consoleApp')
 			});
 			return request;
 		}
+
+		function getByObjId(user) {
+			var request = $http({
+				method: 'GET',
+				url: baseurl + 'subscribers/get_by_object_id',
+				params: {
+					'objectId': user
+				}
+			});
+			return request;
+		}
+
+		function addChannel(channel, object_id) {
+			var request = $http({
+				method: 'POST',
+				url: baseurl + 'subscribers/add_channel',
+				params: {
+					'channelid': channel,
+					'objectId' : object_id
+				}
+			});
+			return request;
+		}
+
+		function removeChannel(channel, object_id) {
+			var request = $http({
+				method: 'POST',
+				url: baseurl + 'subscribers/remove_channel',
+				params: {
+					'channelid': channel,
+					'objectId' : object_id
+				}
+			});
+			return request;
+		}
+
+
 		return {
 			createSubscriber: createSubscriber,
-			validateSubscriber: validateSubscriber
+			validateSubscriber: validateSubscriber,
+			addChannel:addChannel,
+			removeChannel:removeChannel,
+			getByObjId:getByObjId
 
 		};
 	}]);

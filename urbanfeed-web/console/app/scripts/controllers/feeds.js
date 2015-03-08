@@ -8,7 +8,7 @@
  * Controller of the consoleApp
  */
 angular.module('consoleApp')
-	.controller('FeedsCtrl', ['$scope', '$timeout', 'FeedsService', 'Messages', function($scope,$timeout, FeedsService, Messages) {
+	.controller('FeedsCtrl', ['$scope','$rootScope' ,'$timeout', 'FeedsService', 'Messages', 'Subscribers',function($scope, $rootScope,$timeout, FeedsService, Messages, Subscribers) {
 		$scope.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -54,6 +54,26 @@ angular.module('consoleApp')
 
 		$scope.expandCard = function(evt) {
 			console.log(evt);
+		};
+
+		$scope.RemoveFeed = function(feedid) {
+			var rm = Subscribers.removeChannel(feedid, $rootScope.username);
+			rm.success(function(data) {
+				toast('Feed Removed Successfully',2000);
+				var index = $rootScope.channels.indexOf(feedid);
+				$rootScope.channels.splice(index, 1);
+
+			});
+		};
+
+		$scope.AddFeed = function(feedid) {
+			var rm = Subscribers.addChannel(feedid, $rootScope.username);
+			rm.success(function(data) {
+				toast('Feed added to follow list:'+ feedid,2000);
+				
+				$rootScope.channels.push(feedid);
+
+			});
 		};
 
 		console.log($scope.feedItems);

@@ -31,9 +31,25 @@ angular.module('consoleApp')
 			});
 			return request;
 		}
+
+		function getByIds(channels) {
+			var request = $http({
+				method: 'GET',
+				url: baseurl + 'channels/get_by_ids',
+				params: {
+					'channels': channels
+				}
+			});
+			return request;
+		}
+
+		
+
+		
 		return {
 			getAllFeeds: allFeeds,
-			getFeedByCity: getByCity
+			getFeedByCity: getByCity,
+			getByIds: getByIds
 		};
 
 
