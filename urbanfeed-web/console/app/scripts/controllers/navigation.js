@@ -8,14 +8,19 @@
  * Controller of the consoleApp
  */
 angular.module('consoleApp')
-	.controller('NavigationCtrl', function($scope) {
-		$scope.awesomeThings = [
-			'HTML5 Boilerplate',
-			'AngularJS',
-			'Karma'
-		];
+	.controller('NavigationCtrl', ['$cookieStore', '$window','$scope', function( $cookieStore, $window, $scope ) {
+
 
 		$scope.DisplayLogin = function() {
 			$('#login').openModal();
 		};
-	});
+
+		$scope.dropdownLogout = function() {
+			$('.dropdown-button').dropdown();
+		};
+		$scope.Logout = function() {
+			console.log('logout');
+			$cookieStore.remove('LoggedUser');
+			$window.location.reload();
+		};
+	}]);

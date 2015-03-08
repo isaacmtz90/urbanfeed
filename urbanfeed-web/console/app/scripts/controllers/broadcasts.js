@@ -14,8 +14,9 @@ angular.module('consoleApp')
       'AngularJS',
       'Karma'
     ];
-
+    $scope.current=
     Messages.getByChannels($routeParams.param).success(function(data) {
 			$scope.feedItems = data.items;
+
 		});
   }]);

@@ -4,6 +4,28 @@ runtime: python27
 api_version: 1
 threadsafe: yes
 
+skip_files:
+- ^node_modules/(.*/)/node_modules?
+- ^(.*/)?app\.yaml
+- ^(.*/)?app\.yml
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?.*/RCS/.*
+- ^(.*/)?\..*
+- ^(.*/)?tests$
+- ^(.*/)?test$
+- ^test/(.*/)?
+- ^COPYING.LESSER
+- ^README\..*
+- \.gitignore
+- ^\.git/.*
+- \.*\.lint$
+- ^fabfile\.py
+- ^testrunner\.py
+- ^grunt\.js
+- ^(.*/)?.*/node_modules/*/.*
+
 handlers:
 - url: /
   static_files: static_site/index.html
@@ -38,6 +60,24 @@ handlers:
 
 - url: /images
   static_dir: static_site/images
+
+- url: /console/index.html
+  static_files: console/dist/index.html
+  upload: console/dist/index.html
+
+- url: /console/styles
+  static_dir: console/dist/styles
+
+- url: /console/scripts
+  static_dir: console/dist/scripts
+
+- url: /console/views
+  static_dir: console/dist/views
+
+- url: /console/font
+  static_dir: console/dist/font
+
+
 
 libraries:
 - name: webapp2

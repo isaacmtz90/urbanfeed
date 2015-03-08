@@ -16,11 +16,9 @@ MultiMessage = protopigeon.list_message(SubMsg)
 
 @auto_service
 class SubscribersService(Service):
-	list = hvild.list(Subscriber)
-	get = hvild.get(Subscriber)
-	delete = hvild.delete(Subscriber)
+	
+	get = hvild.get(Subscriber)	
 	insert = hvild.insert(Subscriber)
-	update = hvild.update(Subscriber)
 
 	@f3.auto_method(returns= SubMsg, http_method="GET", name="get_by_object_id")
 	def get_by_obj_id(delf,request,objectId=(str,)):

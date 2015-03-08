@@ -22,7 +22,7 @@
       <![endif]-->
 
       <!-- Add your site or application content here -->
-      
+        
       <nav ng-controller="NavigationCtrl" class="deep-orange darken-2">
         <div class="nav-wrapper">
           <a  ng-href="" class="brand-logo center">URBAN<b>FEED</b></a>
@@ -32,16 +32,19 @@
             <li><a ng-href="#/about">About</a></li>
             <li><a ng-href="#/feeds">Feeds</a></li>       
           </ul>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li ng-if="!$root.username"li><a href ng-click="DisplayLogin()">Login</a></li>
-             <li ng-if="$root.username"li><a href >{{$root.username}}</a></li>
 
-          </ul>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li ng-if="!$root.username"><a href ng-click="DisplayLogin()">Login</a></li>
+            <li ng-if="$root.username">Logged as: <span class="cyan-text"><b>{{$root.username}}</b><span></li>
+            <li ng-if="$root.username"><a href ng-click="Logout()">Logout</a></li>
+                        
+         </ul>
           <ul id="mobile-demo" class="side-nav">
            <li><a ng-href="#/">Home</a></li>
            <li><a ng-href="#/about">About</a></li>
            <li><a ng-href="#/feeds">Feeds</a></li>       
            <li><a href ng-click="DisplayLogin()">Login</a></li>
+
          </ul>
        </div>
 
@@ -60,8 +63,9 @@
             <div class="input-field col s12">
                <i class="mdi-communication-vpn-key prefix"></i>
                <input  ng-model="password" id="icon_prefix" type="password" class="validate" required>
-               <label for="textarea1">password</label>
+               <label for="textarea1">Password</label>
             </div>
+            <p ng-show="$root.errorlogin" class="red-text">Credentials not valid, please try again</p>
           </div>
           </form>
       </div>
@@ -108,6 +112,7 @@
     <script src="bower_components/json3/lib/json3.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/materialize/bin/materialize.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

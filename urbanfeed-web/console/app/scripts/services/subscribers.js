@@ -32,7 +32,7 @@ angular.module('consoleApp')
 				method: 'POST',
 				url: baseurl + 'subscribers/validate',
 				params: {
-					'object_id': user,
+					'objectId': user,
 					'password': password
 				}
 			});
