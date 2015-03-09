@@ -4,8 +4,11 @@ Part of Global Datafest Hackathon for Tegucigalpa. More information here: http:/
 
 
 Backend using Ferris 3 framework for Google App Engine + Email service
+
 Parse for push notifications
+
 Homepage using Alpha template
+
 Admin Console build with aAngularJS
 
 iOS App can be found at https://github.com/crisgarner/UrbanFeedApp
