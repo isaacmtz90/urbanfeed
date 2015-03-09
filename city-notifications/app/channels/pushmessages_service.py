@@ -3,12 +3,15 @@ import protopigeon
 import logging
 import urllib
 import json
+import re
 from protorpc import messages
 from google.appengine.ext import ndb
+from google.appengine.api import mail
 from google.appengine.api import urlfetch
 from ferris3 import Model, Service, hvild, auto_service
 from app.models.message import PushMessage
 from app.models.channel import Channel
+from app.models.subscriber import Subscriber
 
 """
 mszxzS42wKud0ojfP0jJr8klsNCT9k8Js9JMf6ZW8 remove the 8
@@ -36,6 +39,25 @@ class MessagesService(Service):
 		datamsg=f3.messages.serialize(MessageMsg,broadcasted_msg)
 		broadcasted_msg.put()
 		
+		#get subscribers of that channel
+		subs= Subscriber.query(
+			Subscriber.channels == channel_id
+		)
+		#make recipients string
+		recipients=""
+		if subs is not None:
+			for sub in subs:
+				#only email subscribers
+				if re.match(r"[^@]+@[^@]+\.[^@]+", sub.object_id):
+					recipients+=sub.object_id+","
+		#send the email
+		if  recipients:
+			mail.send_mail(sender="UrbanFeed@city-notifications.appspotmail.com",
+	              to=recipients,
+	              subject="Message from "+ channel_name,
+	              body=content)
+			
+		#send parse message
 		url="https://api.parse.com/1/push"
 		payload_content= {
 		'channels': [channel_id],

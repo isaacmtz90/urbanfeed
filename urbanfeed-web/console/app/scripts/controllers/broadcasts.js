@@ -8,15 +8,17 @@
  * Controller of the consoleApp
  */
 angular.module('consoleApp')
-  .controller('BroadcastsCtrl',[ '$scope', 'Messages','$routeParams', function ($scope, Messages,$routeParams) {
+  .controller('BroadcastsCtrl', ['$scope', 'Messages', '$routeParams', function($scope, Messages, $routeParams) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-    $scope.current=
+    $scope.feedItems = [];
     Messages.getByChannels($routeParams.param).success(function(data) {
-			$scope.feedItems = data.items;
+      if (data.items) {
+        $scope.feedItems = data.items;
+      }
 
-		});
+    });
   }]);

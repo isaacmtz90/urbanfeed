@@ -21,6 +21,8 @@ angular.module('consoleApp')
 				$rootScope.$broadcast('user-logged');
 			});
 			
+		}else{
+			$rootScope.channels=[];
 		}
 
 		$scope.logMeIn = function(username, password) {

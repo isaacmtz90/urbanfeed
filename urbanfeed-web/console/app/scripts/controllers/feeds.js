@@ -8,19 +8,66 @@
  * Controller of the consoleApp
  */
 angular.module('consoleApp')
-	.controller('FeedsCtrl', ['$scope','$rootScope' ,'$timeout', 'FeedsService', 'Messages', 'Subscribers',function($scope, $rootScope,$timeout, FeedsService, Messages, Subscribers) {
+	.controller('FeedsCtrl', ['$scope', '$rootScope', '$timeout', 'FeedsService', 'Cityservice', 'Messages', 'Subscribers', function($scope, $rootScope, $timeout, FeedsService, Cityservice,Messages, Subscribers) {
 		$scope.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
 			'Karma'
 		];
 
+		Cityservice.allCities().success(function(data){
+			$scope.cities=data.items;
+		});
 
 		FeedsService.getAllFeeds().success(function(data) {
 			console.log(data.items);
 			$scope.feedItems = data.items;
-			$('.tooltipped').tooltip({delay: 50});
+			$('.tooltipped').tooltip({
+				delay: 50
+			});
 		});
+
+		$scope.getCity=function(city_id){
+			var cityname= 'city';
+			angular.forEach($scope.cities,function(city,key){
+				if (city.id===city_id){
+					cityname= city.name + ' - ' + city.country;
+				}
+			});
+			return cityname;
+
+		};
+
+		$scope.isOwned = function(channelid) {
+			if ($rootScope.logged) {
+				
+				if ($rootScope.channels.indexOf(channelid) !== -1) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return true;
+			}
+
+		};
+
+		$scope.isAdmin = function(adminEmail) {
+			if ($rootScope.logged) {
+				if ($rootScope.username === adminEmail) {
+					return true;
+				} else
+
+				if (adminEmail === 'all') {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+
+		};
 
 		$scope.createMessage = function(title, content, channel) {
 			console.log('hai');
@@ -53,13 +100,13 @@ angular.module('consoleApp')
 		};
 
 		$scope.expandCard = function(evt) {
-			console.log(evt);
+			console.log('expand');
 		};
 
 		$scope.RemoveFeed = function(feedid) {
 			var rm = Subscribers.removeChannel(feedid, $rootScope.username);
 			rm.success(function(data) {
-				toast('Feed Removed Successfully',2000);
+				toast('Feed Removed Successfully', 2000);
 				var index = $rootScope.channels.indexOf(feedid);
 				$rootScope.channels.splice(index, 1);
 
@@ -69,8 +116,8 @@ angular.module('consoleApp')
 		$scope.AddFeed = function(feedid) {
 			var rm = Subscribers.addChannel(feedid, $rootScope.username);
 			rm.success(function(data) {
-				toast('Feed added to follow list:'+ feedid,2000);
-				
+				toast('Feed added to follow list:' + feedid, 2000);
+
 				$rootScope.channels.push(feedid);
 
 			});

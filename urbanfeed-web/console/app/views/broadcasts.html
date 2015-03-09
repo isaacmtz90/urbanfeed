@@ -1,34 +1,46 @@
 
-<div class="row">
+<div  class="row">
 
-
+	<a href="#/feeds" class="btn waves-effect waves-light red"></i>back to feeds</a>
 	<h2 class="center-align">Timeline</h2>
-	<div class="col s12 m8 offset-m2 l6 offset-l3">
+	<div ng-if="feedItems.length<=0" class="container center">
+		<br><br><br>
+		<h4 class="orange-text darken-2"> Sorry, no messages are available in this feed yet</h4>
+	</div>
+	<div ng-if="feedItems.length>0" class="col s12 m8 offset-m2 l6 offset-l3">
 		<div ng-repeat="(key, value) in feedItems"> 
 
 			<div class="card grey lighten-5 z-depth-1"  >
 				<div class="row valign-wrapper" >
 					
-					<div class="col s12 center">
+					<div class="col s8">
 						<h5 class="black-text">
 							{{value.title}}
 						</h5>
 						
 						<p class="black-text">
 							{{value.content}}
-							<br>
-							posted on: {{value.date}}
+							
+						</p>						
+
+					</div>
+					<div class="col s4">
+						
+						<p class="black-text">	
+							posted on: {{value.date | date: 'MM/dd  HH:mm'}}
 						</p>
 						
 
 					</div>
 					
 				</div>
-			
+
 			</div>
 		</div>
 	</div>
 
 </div>
+
+
 
 

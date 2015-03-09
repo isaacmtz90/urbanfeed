@@ -3,7 +3,11 @@
 
 
 	<h2 class="center-align">My Feeds:</h2>
-	<div class="col s12 m8 offset-m2 l6 offset-l3">
+	<div ng-if="feedItems.length<=0" class="container center">
+		<br><br><br>
+		<h4 class="orange-text darken-2"> Sorry, You have no feeds added yet</h4>
+	</div>
+	<div ng-if="feedItems.length>0" class="col s12 m8 offset-m2 l6 offset-l3">
 		<div ng-repeat="(key, value) in feedItems"> 
 
 			<div class="card grey lighten-5 z-depth-1" ng-class="{medium:selected}" ng-init="selected=false">
@@ -15,6 +19,8 @@
 						<h5 class="black-text">
 							{{value.name}}
 						</h5>
+						<p class="blue-text lighten-3">{{getCity(value.city)}}</p>
+						<p>{{value.description}} </p>
 
 					</div>
 					<div class="col s4">

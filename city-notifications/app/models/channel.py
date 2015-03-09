@@ -4,6 +4,7 @@ from app.models.city import City
 
 class Channel(Model):
     name = ndb.StringProperty(required=True)
+    description = ndb.StringProperty()
     short_id= ndb.StringProperty(required=True)
     city = ndb.KeyProperty(kind='City')
     logo_url = ndb.StringProperty()

@@ -8,8 +8,11 @@
  * Controller of the consoleApp
  */
 angular.module('consoleApp')
-	.controller('MyfeedsCtrl', ['$scope', 'FeedsService', '$rootScope', 'Subscribers', function($scope, FeedsService, $rootScope, Subscribers) {
+	.controller('MyfeedsCtrl', ['$scope', 'FeedsService', 'Cityservice', '$rootScope', 'Subscribers', function($scope, FeedsService, Cityservice, $rootScope, Subscribers) {
 
+		Cityservice.allCities().success(function(data){
+			$scope.cities=data.items;
+		});
 
 		$scope.$on('user-logged', function() {
 			var idscomma = '';
@@ -42,6 +45,16 @@ angular.module('consoleApp')
 			});
 		}
 
+		$scope.getCity=function(city_id){
+			var cityname= 'city';
+			angular.forEach($scope.cities,function(city,key){
+				if (city.id===city_id){
+					cityname= city.name + ' - ' + city.country;
+				}
+			});
+			return cityname;
+
+		};
 
 
 		$scope.RemoveFeed = function(feedid, indx) {
@@ -49,7 +62,7 @@ angular.module('consoleApp')
 			rm.success(function(data) {
 				toast('Feed Removed Successfully', 2000);
 				var index = $rootScope.channels.indexOf(feedid);
-				$rootScope.channels = $rootScope.channels.splice(index, 1);
+				$rootScope.channels.splice(index, 1);
 				console.log(indx);
 				$scope.feedItems.splice(indx, 1);
 			});
