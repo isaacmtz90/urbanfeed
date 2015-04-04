@@ -4,6 +4,12 @@ from ferris3 import Model
 
 class Subscriber(Model):
     object_id = ndb.StringProperty()
+    email = ndb.StringProperty()
+    sms_enabled = ndb.BooleanProperty(default=True)
+    sms_verified= ndb.BooleanProperty(default=False)
+    email_enabled = ndb.BooleanProperty(default=True)
+    email_verified= ndb.BooleanProperty(default=False)
+    phone_number = ndb.StringProperty()
     password = ndb.StringProperty()
     channels = ndb.StringProperty(repeated=True)
 

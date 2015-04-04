@@ -15,13 +15,26 @@ angular.module('consoleApp')
 			'Karma'
 		];
 		$scope.success = false;
-		$scope.registerUser = function(username, password, passwordconfirmation) {
+		$scope.regions = [{
+			id: 1,
+			name: 'USA (+1)'
+		}, {
+			id: 504,
+			name: 'Honduras (+504)'
+		}];
+		$scope.smsnoti=true;
+		$scope.emailnoti=true;
+		$(document).ready(function() {
+			$('select').material_select();
+		});
+		$scope.registerUser = function(username, password, passwordconfirmation, region, phone, smsnoti, emailnoti) {
 			var EMAIL_REGEXP = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+			console.log(username, region, phone, smsnoti, emailnoti);
 			if (!EMAIL_REGEXP.test(username)) {
 				toast('Not a valid email, try again', 4000);
 			} else {
 				if (password === passwordconfirmation) {
-					var subscription = Subscribers.createSubscriber(username, password);
+					/*var subscription = Subscribers.createSubscriber(username, password);
 					subscription.success(function(data) {
 						$scope.success = true;
 						$timeout(function() {
@@ -29,6 +42,8 @@ angular.module('consoleApp')
 						}, 1000);
 
 					});
+				*/
+
 				} else {
 					toast('Passwords do not match, try again', 4000);
 				}

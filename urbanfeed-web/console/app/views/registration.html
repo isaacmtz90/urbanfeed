@@ -1,27 +1,65 @@
 <div ng-show="!success" class="container">
   <h3 class="orange-text  center">Register with your email (Phone number registering coming soon)</h3>
-   <form id-"form" ng-submit="registerUser(username, password, passwordconfirmation)">
-            <div class="row">
-            <div class="input-field col s12">
-              <i class="mdi-social-person prefix"></i>
-              <input  ng-model="username" id="icon_prefix" type="email" class="validate" required>
-              <label for="icon_prefix">Email</label>
-            </div>
-            <div class="input-field col s12">
-               <i class="mdi-communication-vpn-key prefix"></i>
-               <input  ng-model="password" id="icon_prefix" type="password" class="validate" required >
-               <label for="textarea1">Password</label>
-            </div>
-            <div class="input-field col s12">
-               <i class="mdi-communication-vpn-key prefix"></i>
-               <input  ng-model="passwordconfirmation" id="icon_prefix" type="password" class="validate" required >
-               <label for="textarea1">Confirm Password</label>
-            </div>
-          </div>
-          </form>
-          <div class="row center">
-          <a ng-click="registerUser(username, password, passwordconfirmation)" class="btn waves-effect waves-light red"></i>Create Account</a>
+  <form id-"form" ng-submit="registerUser(username, password, passwordconfirmation)">
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="mdi-social-person prefix"></i>
+        <input  ng-model="username" id="icon_prefix" type="email" class="validate" required>
+        <label for="icon_prefix">Email</label>
       </div>
+
+      <div class="col s12">
+        
+        <select ng-model="region">
+             <option value="" disabled selected>Choose your region</option>
+            <option value="504">Honduras (+504)</option>
+            <option value="1">USA (+1)</option>
+           
+        </select>
+      </div>
+
+      <div class="input-field col s12">
+        <i class="mdi-hardware-smartphone prefix"></i>
+        <input  ng-model="phone" id="icon_prefix" type="tel" class="validate" required>
+        <label for="icon_prefix">Phone Number</label>
+      </div>
+      <div class="input-field col s12">
+       <i class="mdi-communication-vpn-key prefix"></i>
+       <input  ng-model="password" id="icon_prefix" type="password" class="validate" required >
+       <label for="textarea1">Password</label>
+     </div>
+     <div class="input-field col s12">
+       <i class="mdi-communication-vpn-key prefix"></i>
+       <input  ng-model="passwordconfirmation" id="icon_prefix" type="password" class="validate" required >
+       <label for="textarea1">Confirm Password</label>
+     </div>
+     <div class="col s12">
+       <label>Email Notifications</label>
+       <div class="switch">
+        <label>
+          Off
+          <input ng-model= "smsnoti" type="checkbox" checked="checked">
+          <span class="lever"></span>
+          On
+        </label>
+      </div>
+    </div>
+    <div class="col s12">
+      <label>SMS Notifications</label>
+      <div class="switch">
+        <label>
+          Off
+          <input ng-model= "emailnoti" type="checkbox" checked="checked">
+          <span class="lever"></span>
+          On
+        </label>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="row center">
+  <a ng-click="registerUser(username, password, passwordconfirmation, region, phone,smsnoti, emailnoti)" class="btn waves-effect waves-light red"></i>Create Account</a>
+</div>
 </div>
 <div ng-show= "success" class="container center">
  <h1 class="center"> Account created! Redirecting you to the Homepage </h1>

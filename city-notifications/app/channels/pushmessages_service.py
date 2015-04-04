@@ -4,10 +4,12 @@ import logging
 import urllib
 import json
 import re
+import twilio
 from protorpc import messages
 from google.appengine.ext import ndb
 from google.appengine.api import mail
 from google.appengine.api import urlfetch
+from twilio.rest import TwilioRestClient
 from ferris3 import Model, Service, hvild, auto_service
 from app.models.message import PushMessage
 from app.models.channel import Channel
@@ -17,6 +19,10 @@ from app.models.subscriber import Subscriber
 mszxzS42wKud0ojfP0jJr8klsNCT9k8Js9JMf6ZW8 remove the 8
 83BHgK79PTFlYGAec9nIG2dtkFoyXoFGJEVplMW add a Q
 """
+twilio_acc ='ACdeb5d6152c18963a8ec4889adf23d2f6'
+twilio_tkn=  'bd6c2ceb49775ddcbc1a4fc33cf1f631'
+parse_appid='mszxzS42wKud0ojfP0jJr8klsNCT9k8Js9JMf6ZW'
+parse_apikey='83BHgK79PTFlYGAec9nIG2dtkFoyXoFGJEVplMWQ'
 MessageMsg = protopigeon.model_message(PushMessage)
 
 MultiMessage = protopigeon.list_message(MessageMsg)
@@ -43,20 +49,33 @@ class MessagesService(Service):
 		subs= Subscriber.query(
 			Subscriber.channels == channel_id
 		)
-		#make recipients string
+		#make email recipients string
 		recipients=""
 		if subs is not None:
 			for sub in subs:
-				#only email subscribers
-				if re.match(r"[^@]+@[^@]+\.[^@]+", sub.object_id):
-					recipients+=sub.object_id+","
-		#send the email
+				#only email subscribers with email ntifications enabled
+				if sub.email_enabled:
+					#re.match(r"[^@]+@[^@]+\.[^@]+", sub.object_id):
+					recipients+=sub.email+","
+
+		#send the emails
 		if  recipients:
 			mail.send_mail(sender="UrbanFeed@city-notifications.appspotmail.com",
 	              to=recipients,
 	              subject="Message from "+ channel_name,
 	              body=content)
-			
+		
+		#send the sms
+		sms_recipients= [];
+		client = TwilioRestClient(twilio_acc, twilio_tkn)
+		
+		if subs is not None:
+			for sub in subs:
+				#only email subscribers with sms ntifications enabled
+				if sub.sms_enabled:					
+					message = client.messages.create(to="+"+sub.phone_number, from_="+12057915054", body=channel_name+ "-"+content)
+					
+
 		#send parse message
 		url="https://api.parse.com/1/push"
 		payload_content= {
@@ -67,8 +86,8 @@ class MessagesService(Service):
 			payload= json.dumps(payload_content),
 			method=urlfetch.POST,
     		headers={'Content-Type': 'application/json',
-    				'X-Parse-Application-Id':'mszxzS42wKud0ojfP0jJr8klsNCT9k8Js9JMf6ZW',
-    				'X-Parse-REST-API-Key':'83BHgK79PTFlYGAec9nIG2dtkFoyXoFGJEVplMWQ'})
+    				'X-Parse-Application-Id':parse_appid,
+    				'X-Parse-REST-API-Key':parse_apikey})
 			
 		return datamsg
 		
@@ -82,6 +101,8 @@ class MessagesService(Service):
 			return f3.messages.serialize_list(MultiMessage, cha_msgs)
 		else:
 			 raise f3.NotFoundException()
+	
+	
 
 	@f3.auto_method(returns= MultiMessage, http_method="GET", name="get_by_channels")
 	def by_channels(delf,request,channels=(str,)):
