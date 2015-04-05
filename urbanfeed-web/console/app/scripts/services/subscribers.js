@@ -11,14 +11,18 @@ var baseurl = 'https://city-notifications.appspot.com/_ah/api/urbanfeed/v1/';
 angular.module('consoleApp')
 	.service('Subscribers', ['$http', function Subscribers($http) {
 
-		function createSubscriber(user,password) {
+		function createSubscriber(user,password, email, phone_number, sms_enabled, email_enabled) {
 			var request = $http({
 				method: 'POST',
-				url: baseurl + 'subscribers/insert',
+				url: baseurl + 'subscribers/insert_subscriber',
 				data: {
 					'object_id': user,
 					'password': password,
-					'channels': []
+					'channels': [],
+					'phone_number':phone_number,
+					'email':email,
+					'sms_enabled':sms_enabled,
+					'email_enabled':email_enabled
 				},
 				headers: {
 					'Content-Type': 'application/json'

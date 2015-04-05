@@ -2,6 +2,8 @@ import ferris3 as f3
 import protopigeon
 import logging
 from protorpc import messages
+from random import randint
+from Crypto.Hash import SHA256
 from google.appengine.ext import ndb
 from ferris3 import Model, Service, hvild, auto_service
 from app.models.message import PushMessage
@@ -12,13 +14,34 @@ from app.models.subscriber import Subscriber
 SubMsg = protopigeon.model_message(Subscriber)
 
 MultiMessage = protopigeon.list_message(SubMsg)
+class BooleanMessage(messages.Message):
+    value = messages.BooleanField()
 
+def random_with_N_digits(n):
+    range_start = 10**(n-1)
+    range_end = (10**n)-1
+    return randint(range_start, range_end)
 
 @auto_service
 class SubscribersService(Service):
 	
 	get = hvild.get(Subscriber)	
-	insert = hvild.insert(Subscriber)
+	
+
+	@f3.auto_method(returns= SubMsg, http_method="POST", name="insert_subscriber")
+	def insert_subscriber(delf,request=(SubMsg,)):
+		sub_to_insert= Subscriber(
+			object_id = SubMsg.email,
+			email = SubMsg.email,
+			sms_enabled = SubMsg.sms_enabled,
+			email_enabled = SubMsg.email_enabled,
+			password =  SHA256.new(SubMsg.password).hexdigest(),
+			channels=[],
+			sms_verification_code = random_with_N_digits(4),
+			email_verification_code= SHA256.new(SubMsg.email).hexdigest(),
+	   		phone_number= SubMsg.phone_number);
+   		sub_to_insert.put()
+   
 
 	@f3.auto_method(returns= SubMsg, http_method="GET", name="get_by_object_id")
 	def get_by_obj_id(delf,request,objectId=(str,)):
@@ -27,8 +50,8 @@ class SubscribersService(Service):
 
 	@f3.auto_method(returns= SubMsg, http_method="POST", name="validate")
 	def validate(delf,request,objectId=(str,), password=(str,)):
-		value= Subscriber.get_by_obj_id(objectId).get()
-		if value.password == password:
+		value= Subscriber.get_by_obj_id(objectId).get();
+		if SHA256.new(password).hexdigest() == value.password :
 			return f3.messages.serialize(SubMsg, value)
 		else:
 			raise f3.NotFoundException()

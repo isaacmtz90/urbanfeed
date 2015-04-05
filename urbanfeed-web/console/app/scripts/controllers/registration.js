@@ -34,7 +34,7 @@ angular.module('consoleApp')
 				toast('Not a valid email, try again', 4000);
 			} else {
 				if (password === passwordconfirmation) {
-					/*var subscription = Subscribers.createSubscriber(username, password);
+					var subscription = Subscribers.createSubscriber(username, password);
 					subscription.success(function(data) {
 						$scope.success = true;
 						$timeout(function() {
@@ -42,7 +42,7 @@ angular.module('consoleApp')
 						}, 1000);
 
 					});
-				*/
+				
 
 				} else {
 					toast('Passwords do not match, try again', 4000);
