@@ -15,7 +15,7 @@ SubMsg = protopigeon.model_message(Subscriber)
 
 MultiMessage = protopigeon.list_message(SubMsg)
 class BooleanMessage(messages.Message):
-    value = messages.BooleanField()
+    value = messages.BooleanField(1)
 
 def random_with_N_digits(n):
     range_start = 10**(n-1)
@@ -28,19 +28,26 @@ class SubscribersService(Service):
 	get = hvild.get(Subscriber)	
 	
 
-	@f3.auto_method(returns= SubMsg, http_method="POST", name="insert_subscriber")
+	@f3.auto_method(returns= BooleanMessage, http_method="POST", name="insert_subscriber")
 	def insert_subscriber(delf,request=(SubMsg,)):
+		response=BooleanMessage(value=True);
 		sub_to_insert= Subscriber(
-			object_id = SubMsg.email,
-			email = SubMsg.email,
-			sms_enabled = SubMsg.sms_enabled,
-			email_enabled = SubMsg.email_enabled,
-			password =  SHA256.new(SubMsg.password).hexdigest(),
+			object_id = request.email,
+			email = request.email,
+			sms_enabled = request.sms_enabled,
+			email_enabled = request.email_enabled,
+			password =  SHA256.new(request.password).hexdigest(),
 			channels=[],
-			sms_verification_code = random_with_N_digits(4),
-			email_verification_code= SHA256.new(SubMsg.email).hexdigest(),
-	   		phone_number= SubMsg.phone_number);
-   		sub_to_insert.put()
+			sms_verification_code = str(random_with_N_digits(4)),
+			email_verification_code= SHA256.new(request.email).hexdigest(),
+	   		phone_number= request.phone_number);
+		try:
+   			sub_to_insert.put()
+   			return response;
+   		except:
+   			response=BooleanMessage(value=False);
+   			return response;
+
    
 
 	@f3.auto_method(returns= SubMsg, http_method="GET", name="get_by_object_id")
