@@ -72,6 +72,17 @@ class SubscribersService(Service):
 		subscriber_value= Subscriber.get_by_obj_id(objectId).get()		
 		return f3.messages.serialize(SubMsg, subscriber_value)
 
+	@f3.auto_method( http_method="POST", name="resend_sms_verification")
+	def resend_sms_verification(delf,request,objectId=(str,)):
+		subscriber_value= Subscriber.get_by_obj_id(objectId).get()		
+		if subscriber_value is not None:
+			client = TwilioRestClient(twilio_acc, twilio_tkn)
+ 			message = client.messages.create(to="+"+subscriber_value.phone_number,
+ 					 from_="+12057915054", body="You verification code is: "+subscriber_value.sms_verification_code);
+ 		else:
+				raise f3.NotFoundException()
+		return f3.messages.serialize(SubMsg, subscriber_value)
+
 	@f3.auto_method(returns= SubMsg, http_method="POST", name="validate")
 	def validate(delf,request,objectId=(str,), password=(str,)):
 		subscriber_value= Subscriber.get_by_obj_id(objectId).get();
