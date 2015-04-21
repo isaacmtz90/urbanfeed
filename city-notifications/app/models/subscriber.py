@@ -3,7 +3,7 @@ from ferris3 import Model
 
 
 class Subscriber(Model):
-    object_id = ndb.StringProperty()
+    object_id = ndb.StringProperty(required=True)
     email = ndb.StringProperty()
     sms_enabled = ndb.BooleanProperty(default=True)
     sms_verified= ndb.BooleanProperty(default=False)
@@ -17,4 +17,4 @@ class Subscriber(Model):
 
     @classmethod
     def get_by_obj_id(cls,obj_id):
-    	return cls.query(cls.object_id==obj_id)
+        return cls.query(cls.object_id==obj_id)

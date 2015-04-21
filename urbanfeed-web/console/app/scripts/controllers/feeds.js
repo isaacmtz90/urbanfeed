@@ -9,11 +9,7 @@
  */
 angular.module('consoleApp')
 	.controller('FeedsCtrl', ['$scope', '$rootScope', '$timeout', 'FeedsService', 'Cityservice', 'Messages', 'Subscribers', function($scope, $rootScope, $timeout, FeedsService, Cityservice,Messages, Subscribers) {
-		$scope.awesomeThings = [
-			'HTML5 Boilerplate',
-			'AngularJS',
-			'Karma'
-		];
+		$scope.loaded=false;
 
 		Cityservice.allCities().success(function(data){
 			$scope.cities=data.items;
@@ -25,6 +21,7 @@ angular.module('consoleApp')
 			$('.tooltipped').tooltip({
 				delay: 50
 			});
+			$scope.loaded=true;
 		});
 
 		$scope.getCity=function(city_id){

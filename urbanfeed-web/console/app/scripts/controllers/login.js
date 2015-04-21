@@ -18,8 +18,16 @@ angular.module('consoleApp')
 				var channels =[];
 				channels=channels.concat(data.channels);
 				$rootScope.channels=channels;
+				if(data.channels===undefined){
+					$rootScope.channels=[];
+				}
 				$rootScope.$broadcast('user-logged');
+				if(data.sms_enabled && !data.sms_verified){
+					window.location= '#/sms_validation';
+				}
 			});
+
+
 			
 		}else{
 			$rootScope.channels=[];

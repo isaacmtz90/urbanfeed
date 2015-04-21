@@ -54,7 +54,7 @@ class MessagesService(Service):
 		if subs is not None:
 			for sub in subs:
 				#only email subscribers with email ntifications enabled
-				if sub.email_enabled:
+				if sub.email_enabled and sub.email_verified:
 					#re.match(r"[^@]+@[^@]+\.[^@]+", sub.object_id):
 					recipients+=sub.email+","
 
@@ -72,8 +72,8 @@ class MessagesService(Service):
 		if subs is not None:
 			for sub in subs:
 				#only email subscribers with sms ntifications enabled
-				if sub.sms_enabled:					
-					message = client.messages.create(to="+"+sub.phone_number, from_="+12057915054", body=channel_name+ "-"+content)
+				if sub.sms_enabled and sub.sms_verified:					
+					message = client.messages.create(to=sub.phone_number, from_="+12057915054", body=channel_name+ "-"+content)
 					
 
 		#send parse message

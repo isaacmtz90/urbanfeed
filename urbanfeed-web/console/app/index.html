@@ -22,7 +22,7 @@
       <![endif]-->
 
       <!-- Add your site or application content here -->
-        
+      
       <nav ng-controller="NavigationCtrl" class="deep-orange darken-2">
         <div class="nav-wrapper">
           <a  ng-href="" class="brand-logo center">URBAN<b>FEED</b></a>
@@ -31,15 +31,15 @@
             <li><a ng-href="#/">Home</a></li>
             <li><a ng-href="#/about">About</a></li>
             <li><a ng-href="#/feeds">Feeds</a></li>
-             <li ng-if="$root.username"><a href ng-href="#/myfeeds">My Feeds</a></li>       
+            <li ng-if="$root.username"><a href ng-href="#/myfeeds">My Feeds</a></li>       
           </ul>
 
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li ng-if="!$root.username"><a href ng-click="DisplayLogin()">Login</a></li>
             <li ng-if="$root.username">Logged as: <span class="cyan-text"><b>{{$root.username}}</b><span></li>
             <li ng-if="$root.username"><a href ng-click="Logout()">Logout</a></li>
-                        
-         </ul>
+            
+          </ul>
           <ul id="mobile-demo" class="side-nav">
            <li><a ng-href="#/">Home</a></li>
            <li><a ng-href="#/about">About</a></li>
@@ -51,53 +51,38 @@
 
      </nav>
      <div ng-controller="LoginctrlCtrl">
-     <div  id="login" class="modal">
-      <div class="modal-content">
-        <form id-"form" ng-submit="createMessage(title, content, value)">
+       <div  id="login" class="modal">
+        <div class="modal-content">
+          <form id="form" ng-submit="createMessage(title, content, value)">
             <div class="row">
-            Your username is the email or phone number you used to register:
-            <div class="input-field col s12">
-              <i class="mdi-social-person prefix"></i>
-              <input  ng-model="username" id="icon_prefix" type="text" class="validate" required>
-              <label for="icon_prefix">User</label>
-            </div>
-            <div class="input-field col s12">
+              Your username is the email you used to register:
+              <div class="input-field col s12">
+                <i class="mdi-social-person prefix"></i>
+                <input  ng-model="username" id="icon_prefix" type="text" class="validate" required>
+                <label for="icon_prefix">User</label>
+              </div>
+              <div class="input-field col s12">
                <i class="mdi-communication-vpn-key prefix"></i>
                <input  ng-model="password" id="icon_prefix" type="password" class="validate" required>
                <label for="textarea1">Password</label>
-            </div>
-            <p ng-show="$root.errorlogin" class="red-text">Credentials not valid, please try again</p>
-          </div>
-          </form>
-      </div>
-      <div class="modal-footer">
+             </div>
+             <p ng-show="$root.errorlogin" class="red-text">Credentials not valid, please try again</p>
+           </div>
+         </form>
+       </div>
+       <div class="modal-footer">
          <a ng-click="logMeIn(username,password);" class="btn waves-effect waves-light red"></i>LOGIN</a>
          <a ng-click="register(username,password)" class="btn-flat waves-effect waves-light "></i>I dont have an account</a>
-      </div>
-    </div>
+       </div>
+     </div>
 
-    
-</div>
-
-
+     
+   </div>
 
 
-    <div ng-view=""></div>
 
 
-    
-
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-    <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-   ga('create', 'UA-XXXXX-X');
-   ga('send', 'pageview');
-   </script>
+   <div ng-view=""></div>
 
    <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
@@ -127,13 +112,16 @@
     <script src="scripts/controllers/feeds.js"></script>
     <script src="scripts/controllers/broadcasts.js"></script>
     <script src="scripts/services/messages.js"></script>
-     <script src="scripts/services/subscribers.js"></script>
+    <script src="scripts/services/subscribers.js"></script>
     <script src="scripts/services/cityservice.js"></script>
     <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/navigation.js"></script>
     <script src="scripts/controllers/registration.js"></script>
     <script src="scripts/controllers/myfeeds.js"></script>
     <script src="scripts/filters/cityfilter.js"></script>
+    <script src="scripts/controllers/sms_validation.js"></script>
+    <script src="scripts/services/validations.js"></script>
+    <script src="scripts/controllers/email_validation.js"></script>
     <!-- endbuild -->
   </body>
   </html>

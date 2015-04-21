@@ -9,7 +9,7 @@
  */
 angular.module('consoleApp')
 	.controller('MyfeedsCtrl', ['$scope', 'FeedsService', 'Cityservice', '$rootScope', 'Subscribers', function($scope, FeedsService, Cityservice, $rootScope, Subscribers) {
-
+		$scope.loaded=false;
 		Cityservice.allCities().success(function(data){
 			$scope.cities=data.items;
 		});
@@ -22,11 +22,15 @@ angular.module('consoleApp')
 			});
 
 			FeedsService.getByIds(idscomma).success(function(data) {
-				console.log(data.items);
+				
 				$scope.feedItems = data.items;
+				if ($scope.feedItems === undefined){
+					$scope.feedItems= [];
+				}
 				$('.tooltipped').tooltip({
 					delay: 50
 				});
+				$scope.loaded=true;
 			});
 
 		});

@@ -1,9 +1,7 @@
 
 <div class="row">
-
-
 	<h2 class="center-align">My Feeds:</h2>
-	<div ng-if="feedItems.length<=0" class="container center">
+	<div ng-if="feedItems!=undefined && feedItems.length==0" class="container center">
 		<br><br><br>
 		<h4 class="orange-text darken-2"> Sorry, You have no feeds added yet</h4>
 	</div>

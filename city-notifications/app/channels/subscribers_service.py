@@ -16,7 +16,7 @@ twilio_acc ='ACdeb5d6152c18963a8ec4889adf23d2f6'
 twilio_tkn=  'bd6c2ceb49775ddcbc1a4fc33cf1f631'
 
 SubMsg = protopigeon.model_message(Subscriber)
-Verification_URL= "http://urban-feed.appspot.com/console/index.html#/verification/email?";
+Verification_URL= "http://urban-feed.appspot.com/console/index.html#/email_validation?";
 MultiMessage = protopigeon.list_message(SubMsg)
 class BooleanMessage(messages.Message):
     subscriber_value = messages.BooleanField(1)
@@ -31,10 +31,6 @@ class SubscribersService(Service):
 	
 	get = hvild.get(Subscriber)	
 	
-
-
-	
-
 	@f3.auto_method(returns= BooleanMessage, http_method="POST", name="insert_subscriber")
 	def insert_subscriber(delf,request=(SubMsg,)):
 		response=BooleanMessage(subscriber_value=True);
@@ -65,7 +61,26 @@ class SubscribersService(Service):
    			response=BooleanMessage(subscriber_value=False);
    			return response;
 
-   
+   	@f3.auto_method(returns= BooleanMessage, http_method="POST", name="insert")
+	def insert(delf,request=(SubMsg,)):
+		response=BooleanMessage(subscriber_value=True);
+		sub_to_insert= Subscriber(
+			object_id = request.object_id,
+			email = 'none',
+			sms_enabled = False,
+			email_enabled = False,
+			password =  'none',
+			channels=[],
+			sms_verification_code ='',
+			email_verification_code= '',
+	   		phone_number= '');
+		try:
+   			sub_to_insert.put()
+   			
+   		except:
+   			response=BooleanMessage(subscriber_value=False);
+   		
+   		return response;
 
 	@f3.auto_method(returns= SubMsg, http_method="GET", name="get_by_object_id")
 	def get_by_obj_id(delf,request,objectId=(str,)):
@@ -81,7 +96,7 @@ class SubscribersService(Service):
  					 from_="+12057915054", body="You verification code is: "+subscriber_value.sms_verification_code);
  		else:
 				raise f3.NotFoundException()
-		return f3.messages.serialize(SubMsg, subscriber_value)
+		
 
 	@f3.auto_method(returns= SubMsg, http_method="POST", name="validate")
 	def validate(delf,request,objectId=(str,), password=(str,)):

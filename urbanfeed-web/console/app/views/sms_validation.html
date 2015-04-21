@@ -1,0 +1,19 @@
+<div class="container">
+  <h3 class="orange-text  center">SMS validation</h3>
+  <form id="form" ng-submit="validateSms(username, sms_code)">
+    <div class="row">
+     
+
+      <div class="input-field col s12">
+        <i class="mdi-hardware-smartphone prefix"></i>
+        <input  ng-model="sms_code" id="icon_prefix" type="tel" class="validate" required>
+        <label for="icon_prefix">Validation Code</label>
+      </div>
+     
+  </div>
+</form>
+<div class="row center">
+  <a ng-click="validateSms(username, sms_code)" class="btn waves-effect waves-light green"></i>Validate Number</a>
+  <a ng-click="resendSmsCode(username, sms_code)" class="btn waves-effect waves-light red"></i>Resend Code</a>
+</div>
+</div>

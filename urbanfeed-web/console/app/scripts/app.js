@@ -38,6 +38,14 @@ angular
         templateUrl: 'views/myfeeds.html',
         controller: 'MyfeedsCtrl'
       })
+      .when('/sms_validation', {
+        templateUrl: 'views/sms_validation.html',
+        controller: 'SmsValidationCtrl'
+      })
+      .when('/email_validation', {
+        templateUrl: 'views/email_validation.html',
+        controller: 'EmailValidationCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
