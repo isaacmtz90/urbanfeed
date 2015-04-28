@@ -1,6 +1,6 @@
 # URBANFEED
 UrbanFeed - Making Cities smarter through communication.
-Part of Global Datafest Hackathon for Tegucigalpa. More information here: http://www.global.datafest.net/a/datafest.net/globalurbandatafest/projects/urbanfeed
+Finalist Prject of Global Datafest Hackathon for Tegucigalpa. More information here: http://www.global.datafest.net/a/datafest.net/globalurbandatafest/projects/urbanfeed
 
 
 Backend using Ferris 3 framework for Google App Engine + Email service
